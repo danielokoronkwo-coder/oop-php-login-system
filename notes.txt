@@ -1,0 +1,4 @@
+THINGS I HOPE TO ACHIEVE
+    Inserting and updating a user in the database
+    working with session
+    redirecting a user to another page after login
