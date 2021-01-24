@@ -31,24 +31,28 @@
                 if ($validate->passed()) {
                     $user = new User();
                     $salt = Hash::make(32);
-                    echo $salt;
-                    die();
+                    $salt;
+
                     try {
                         $user->create(array(
-                            'name' => '',
-                            'username' => '',
-                            'password' => '',
-                            'joined' => '',
-                            'group' => ''
+                            'name' => Input::get('name'),
+                            'username' => Input::get('username'),
+                            'password' => Hash::make(Input::get('password'), $salt),
+                            'salt' => $salt,
+                            'joined' => date('Y-m-d H:i:s'),
+                            'group' => 1
 
-                        ))
+                        ));
+
+                        Session::flash('home', 'You have been registered and can now login');
+                        Redirect::to('index.php');
                     } catch (Exception $e) {
-                        die($e->getMessage())
+                        die($e->getMessage());
                     }
                 } else {
                     foreach ($validate->errors() as $error) {
                         echo $error.'<br>';
-                    };
+                };
             }
         }
     }
